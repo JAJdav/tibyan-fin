@@ -1,0 +1,40 @@
+{
+  "rows": 19591,
+  "raw_columns": [
+    "transaction_id",
+    "customer_id",
+    "account_id",
+    "merchant_id",
+    "amount",
+    "currency",
+    "timestamp",
+    "device_id",
+    "channel",
+    "country",
+    "merchant_category",
+    "is_fraud"
+  ],
+  "notes": [],
+  "raw_missing": {
+    "country": 15
+  },
+  "amount_quantiles": {
+    "0.01": 12.0,
+    "0.5": 107.55,
+    "0.9": 341.27,
+    "0.99": 2091.9469999999837,
+    "0.999": 9800.4974
+  },
+  "label": {
+    "positives": 581,
+    "labelled_rows": 19591,
+    "rate": 0.029656474911949365,
+    "unlabelled_rows": 0
+  },
+  "time_range": [
+    "2026-08-01 08:06:03+00:00",
+    "2026-10-29 21:58:01+00:00"
+  ],
+  "shared_devices": 41,
+  "leakage_candidates": []
+}

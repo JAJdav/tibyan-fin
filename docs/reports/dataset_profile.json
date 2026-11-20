@@ -1,0 +1,1490 @@
+{
+  "generated_at_utc": "2026-11-20T09:51:59+00:00",
+  "max_rows_per_file": 300000,
+  "tables": {
+    "customers.csv": {
+      "file": "Data\\raw\\customers.csv",
+      "sha256": "90ff741f6155bf2662dcd0d3ad65e84e8cc98e08c019fd12f9f5f970b90d6505",
+      "bytes": 1413706,
+      "rows_profiled": 6000,
+      "n_columns": 27,
+      "notes": [],
+      "duplicate_rows": 0,
+      "pk_candidates": [
+        "customer_id",
+        "national_id_hash",
+        "iban",
+        "primary_device_id"
+      ],
+      "time_column": "account_open_date",
+      "time_span": "2010-12-31 00:00:00 -> 2026-04-20 00:00:00",
+      "labels": [],
+      "entity_columns": [
+        {
+          "column": "customer_id",
+          "n_unique": 6000,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "account_open_date",
+          "n_unique": 2768,
+          "null_pct": 0.0,
+          "rows_per_entity": 2.17
+        },
+        {
+          "column": "phone_hash",
+          "n_unique": 5994,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "primary_device_id",
+          "n_unique": 6000,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "card_hash_1",
+          "n_unique": 5987,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "card_scheme_1",
+          "n_unique": 3,
+          "null_pct": 0.0,
+          "rows_per_entity": 2000.0
+        },
+        {
+          "column": "card_hash_2",
+          "n_unique": 2204,
+          "null_pct": 63.267,
+          "rows_per_entity": 2.72
+        },
+        {
+          "column": "card_scheme_2",
+          "n_unique": 2,
+          "null_pct": 63.267,
+          "rows_per_entity": 3000.0
+        }
+      ],
+      "columns": [
+        {
+          "name": "customer_id",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 6000,
+          "role_hint": "entity",
+          "examples": [
+            "C100000000",
+            "C100000001",
+            "C100000002",
+            "C100000003",
+            "C100000004"
+          ]
+        },
+        {
+          "name": "national_id_hash",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 6000,
+          "role_hint": "unknown",
+          "examples": [
+            "e385314d58cb618b",
+            "d1c151673acfc76b",
+            "ef900b9aaea0f4fa",
+            "d7e71b4a30cf494f",
+            "9d3acd5e3ec4bfd7"
+          ]
+        },
+        {
+          "name": "id_type",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "identifier",
+          "examples": [
+            "national_id",
+            "iqama",
+            "passport"
+          ],
+          "dup_key_values": 5997
+        },
+        {
+          "name": "nationality",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 10,
+          "role_hint": "unknown",
+          "examples": [
+            "SA",
+            "PH",
+            "SY",
+            "JO",
+            "EG"
+          ]
+        },
+        {
+          "name": "age",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 56,
+          "role_hint": "unknown",
+          "examples": [
+            "43",
+            "21",
+            "41",
+            "37",
+            "32"
+          ],
+          "min": 18.0,
+          "p50": 32.0,
+          "max": 75.0,
+          "mean": 33.485166666666665,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "dob",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 4720,
+          "role_hint": "unknown",
+          "examples": [
+            "1982-09-16",
+            "2004-08-01",
+            "1984-03-25",
+            "1983-11-01",
+            "1988-08-03"
+          ]
+        },
+        {
+          "name": "city",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 10,
+          "role_hint": "unknown",
+          "examples": [
+            "Dammam",
+            "Jeddah",
+            "Makkah",
+            "Abha",
+            "Riyadh"
+          ]
+        },
+        {
+          "name": "account_open_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2768,
+          "role_hint": "entity",
+          "examples": [
+            "2024-01-30",
+            "2025-05-24",
+            "2010-12-31",
+            "2025-06-10",
+            "2024-03-13"
+          ],
+          "time_min": "2010-12-31 00:00:00",
+          "time_max": "2026-04-20 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        },
+        {
+          "name": "kyc_level",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "unknown",
+          "examples": [
+            "basic",
+            "standard",
+            "full"
+          ]
+        },
+        {
+          "name": "kyc_status",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "unknown",
+          "examples": [
+            "verified",
+            "expired",
+            "pending"
+          ]
+        },
+        {
+          "name": "kyc_verified_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2720,
+          "role_hint": "unknown",
+          "examples": [
+            "2024-01-31",
+            "2025-05-26",
+            "2011-01-02",
+            "2025-06-11",
+            "2024-03-13"
+          ],
+          "time_min": "2010-12-31 00:00:00",
+          "time_max": "2026-04-22 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        },
+        {
+          "name": "risk_rating",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "unknown",
+          "examples": [
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        {
+          "name": "pep_flag",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "0",
+            "1"
+          ],
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.003833333333333333,
+          "negatives": 0,
+          "zeros": 5977
+        },
+        {
+          "name": "occupation",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 8,
+          "role_hint": "unknown",
+          "examples": [
+            "employee_government",
+            "self_employed",
+            "student",
+            "business_owner",
+            "employee_private"
+          ]
+        },
+        {
+          "name": "monthly_income_sar",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5053,
+          "role_hint": "unknown",
+          "examples": [
+            "17236",
+            "6836",
+            "13773",
+            "9897",
+            "4406"
+          ],
+          "min": 792.0,
+          "p50": 8578.5,
+          "max": 85021.0,
+          "mean": 10350.675333333333,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "phone_hash",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5994,
+          "role_hint": "entity",
+          "examples": [
+            "00690a7a7eaf5c8d",
+            "cdfeed5d5a668615",
+            "d6e242c381a077e8",
+            "73de2bbb4d557c74",
+            "533f4df19b5bca32"
+          ]
+        },
+        {
+          "name": "iban",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 6000,
+          "role_hint": "unknown",
+          "examples": [
+            "SA4280830166131860913909",
+            "SA9210749118625276018955",
+            "SA2420632122330792440268",
+            "SA2720595711777741215472",
+            "SA8305551313735379907511"
+          ]
+        },
+        {
+          "name": "bank_code",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 10,
+          "role_hint": "unknown",
+          "examples": [
+            "80",
+            "10",
+            "20",
+            "5",
+            "60"
+          ],
+          "min": 5.0,
+          "p50": 30.0,
+          "max": 80.0,
+          "mean": 40.6525,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "opening_balance_sar",
+          "dtype": "float64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5991,
+          "role_hint": "amount",
+          "examples": [
+            "5465.74",
+            "13304.86",
+            "55526.14",
+            "16766.37",
+            "7769.82"
+          ],
+          "min": 89.42,
+          "p50": 6827.844999999999,
+          "max": 272928.57,
+          "mean": 11356.99674,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "gt_role",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 4,
+          "role_hint": "unknown",
+          "examples": [
+            "normal",
+            "family_member",
+            "ring_member",
+            "refund_abuse_accomplice"
+          ]
+        },
+        {
+          "name": "gt_scenario_id",
+          "dtype": "object",
+          "nulls": 5245,
+          "null_pct": 87.417,
+          "n_unique": 168,
+          "role_hint": "identifier",
+          "examples": [
+            "FAM_031",
+            "RING_006",
+            "FAM_107",
+            "FAM_054",
+            "FAM_064"
+          ],
+          "dup_key_values": 5832
+        },
+        {
+          "name": "residence_country",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 1,
+          "role_hint": "unknown",
+          "examples": [
+            "SA"
+          ]
+        },
+        {
+          "name": "primary_device_id",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 6000,
+          "role_hint": "entity",
+          "examples": [
+            "D0000000",
+            "D0000001",
+            "D0000003",
+            "D0000004",
+            "D0000006"
+          ]
+        },
+        {
+          "name": "card_hash_1",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5987,
+          "role_hint": "entity",
+          "examples": [
+            "196f7b74ed26af3b",
+            "a95baf07bdea22b7",
+            "4d04f6f8ba1f8ce0",
+            "8049721f4328518b",
+            "20d8772e10a580f9"
+          ]
+        },
+        {
+          "name": "card_scheme_1",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "entity",
+          "examples": [
+            "mastercard",
+            "mada",
+            "visa"
+          ]
+        },
+        {
+          "name": "card_hash_2",
+          "dtype": "object",
+          "nulls": 3796,
+          "null_pct": 63.267,
+          "n_unique": 2204,
+          "role_hint": "entity",
+          "examples": [
+            "898085655965fae5",
+            "b70845f9df3168bb",
+            "b2261469d6d0995b",
+            "d3586bba587c623c",
+            "6e75c62d9c106b8d"
+          ]
+        },
+        {
+          "name": "card_scheme_2",
+          "dtype": "object",
+          "nulls": 3796,
+          "null_pct": 63.267,
+          "n_unique": 2,
+          "role_hint": "entity",
+          "examples": [
+            "visa",
+            "mastercard"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "severity": "HIGH",
+          "table": "customers.csv",
+          "check": "duplicate_key",
+          "detail": "id_type: 5997 repeated values (not unique)",
+          "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+        },
+        {
+          "severity": "HIGH",
+          "table": "customers.csv",
+          "check": "missing_values",
+          "detail": "gt_scenario_id: 5245 nulls (87.417%)",
+          "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+        },
+        {
+          "severity": "HIGH",
+          "table": "customers.csv",
+          "check": "duplicate_key",
+          "detail": "gt_scenario_id: 5832 repeated values (not unique)",
+          "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+        },
+        {
+          "severity": "LOW",
+          "table": "customers.csv",
+          "check": "constant_column",
+          "detail": "residence_country has a single value",
+          "recommended_action": "Drop from model features."
+        },
+        {
+          "severity": "HIGH",
+          "table": "customers.csv",
+          "check": "missing_values",
+          "detail": "card_hash_2: 3796 nulls (63.267%)",
+          "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+        },
+        {
+          "severity": "HIGH",
+          "table": "customers.csv",
+          "check": "missing_values",
+          "detail": "card_scheme_2: 3796 nulls (63.267%)",
+          "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+        },
+        {
+          "severity": "MEDIUM",
+          "table": "customers.csv",
+          "check": "temporal_order",
+          "detail": "2994 rows earlier than preceding row (file not time-sorted)",
+          "recommended_action": "Sort by event time before time-based split and rolling features."
+        },
+        {
+          "severity": "INFO",
+          "table": "customers.csv",
+          "check": "profiled",
+          "detail": "6000 rows x 27 cols; period: 2010-12-31 00:00:00 -> 2026-04-20 00:00:00",
+          "recommended_action": "Record in dataset stats."
+        }
+      ]
+    },
+    "devices.csv": {
+      "file": "Data\\raw\\devices.csv",
+      "sha256": "6ec2e8befce8d42c90bdcbbde9fce71ff246d21e1fbb49953d566adc79b51bab",
+      "bytes": 853232,
+      "rows_profiled": 9921,
+      "n_columns": 11,
+      "notes": [],
+      "duplicate_rows": 0,
+      "pk_candidates": [
+        "device_id"
+      ],
+      "time_column": "first_seen",
+      "time_span": "2010-12-31 00:00:00 -> 2026-05-16 00:00:00",
+      "labels": [],
+      "entity_columns": [
+        {
+          "column": "device_id",
+          "n_unique": 9921,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "device_kind",
+          "n_unique": 4,
+          "null_pct": 0.0,
+          "rows_per_entity": 2480.25
+        },
+        {
+          "column": "device_model",
+          "n_unique": 19,
+          "null_pct": 0.0,
+          "rows_per_entity": 522.16
+        }
+      ],
+      "columns": [
+        {
+          "name": "device_id",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 9921,
+          "role_hint": "entity",
+          "examples": [
+            "D0000000",
+            "D0000001",
+            "D0000002",
+            "D0000003",
+            "D0000004"
+          ]
+        },
+        {
+          "name": "device_kind",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 4,
+          "role_hint": "entity",
+          "examples": [
+            "customer",
+            "merchant_console",
+            "shared_home",
+            "ring_shared"
+          ]
+        },
+        {
+          "name": "os",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5,
+          "role_hint": "unknown",
+          "examples": [
+            "Android",
+            "iOS",
+            "Windows",
+            "Linux",
+            "macOS"
+          ]
+        },
+        {
+          "name": "os_version",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 21,
+          "role_hint": "unknown",
+          "examples": [
+            "Android 13",
+            "iOS 23",
+            "Android 14",
+            "iOS 20",
+            "Android 12"
+          ]
+        },
+        {
+          "name": "browser",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 7,
+          "role_hint": "unknown",
+          "examples": [
+            "Chrome",
+            "Safari",
+            "App WebView",
+            "Samsung Internet",
+            "Opera"
+          ]
+        },
+        {
+          "name": "browser_version",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 10,
+          "role_hint": "unknown",
+          "examples": [
+            "145",
+            "143",
+            "140",
+            "146",
+            "144"
+          ],
+          "min": 138.0,
+          "p50": 143.0,
+          "max": 147.0,
+          "mean": 142.52605584114505,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "device_model",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 19,
+          "role_hint": "entity",
+          "examples": [
+            "Honor 90",
+            "iPhone 12",
+            "Redmi Note 13",
+            "Galaxy A15",
+            "Oppo Reno 11"
+          ]
+        },
+        {
+          "name": "is_emulator",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "0",
+            "1"
+          ],
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.006854147767362161,
+          "negatives": 0,
+          "zeros": 9853
+        },
+        {
+          "name": "language",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "ar",
+            "en"
+          ]
+        },
+        {
+          "name": "timezone",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "Asia/Riyadh",
+            "UTC"
+          ]
+        },
+        {
+          "name": "first_seen",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3414,
+          "role_hint": "unknown",
+          "examples": [
+            "2024-02-15",
+            "2025-06-23",
+            "2025-06-12",
+            "2011-01-14",
+            "2025-06-18"
+          ],
+          "time_min": "2010-12-31 00:00:00",
+          "time_max": "2026-05-16 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        }
+      ],
+      "findings": [
+        {
+          "severity": "MEDIUM",
+          "table": "devices.csv",
+          "check": "temporal_order",
+          "detail": "4896 rows earlier than preceding row (file not time-sorted)",
+          "recommended_action": "Sort by event time before time-based split and rolling features."
+        },
+        {
+          "severity": "INFO",
+          "table": "devices.csv",
+          "check": "profiled",
+          "detail": "9921 rows x 11 cols; period: 2010-12-31 00:00:00 -> 2026-05-16 00:00:00",
+          "recommended_action": "Record in dataset stats."
+        }
+      ]
+    },
+    "merchants.csv": {
+      "file": "Data\\raw\\merchants.csv",
+      "sha256": "c7c4cf06032bac03c11bc31c8c304900b9bbc427364caf1f120e377dd7c18d31",
+      "bytes": 202858,
+      "rows_profiled": 748,
+      "n_columns": 28,
+      "notes": [],
+      "duplicate_rows": 0,
+      "pk_candidates": [
+        "merchant_id",
+        "cr_number",
+        "vat_number",
+        "phone_hash",
+        "iban",
+        "console_device_id"
+      ],
+      "time_column": "cr_issue_date",
+      "time_span": "2014-12-03 00:00:00 -> 2026-01-31 00:00:00",
+      "labels": [],
+      "entity_columns": [
+        {
+          "column": "merchant_id",
+          "n_unique": 748,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "email_domain_type",
+          "n_unique": 2,
+          "null_pct": 0.0,
+          "rows_per_entity": 374.0
+        },
+        {
+          "column": "phone_hash",
+          "n_unique": 748,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        },
+        {
+          "column": "console_device_id",
+          "n_unique": 748,
+          "null_pct": 0.0,
+          "rows_per_entity": 1.0
+        }
+      ],
+      "columns": [
+        {
+          "name": "merchant_id",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "entity",
+          "examples": [
+            "M100000000",
+            "M100000001",
+            "M100000002",
+            "M100000003",
+            "M100000004"
+          ]
+        },
+        {
+          "name": "legal_name",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 564,
+          "role_hint": "unknown",
+          "examples": [
+            "Al Amal Gold LLC",
+            "Rawabi Supermarket Est.",
+            "Qimam Boutique Est.",
+            "Sahab Care LLC",
+            "Al Amal Beauty Est."
+          ]
+        },
+        {
+          "name": "legal_form",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 4,
+          "role_hint": "unknown",
+          "examples": [
+            "llc",
+            "sole_establishment",
+            "branch_foreign",
+            "simplified_jsc"
+          ]
+        },
+        {
+          "name": "city",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 10,
+          "role_hint": "unknown",
+          "examples": [
+            "Abha",
+            "Riyadh",
+            "Dammam",
+            "Jeddah",
+            "Taif"
+          ]
+        },
+        {
+          "name": "cr_number",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "unknown",
+          "examples": [
+            "5855095858",
+            "1010082521",
+            "2050275849",
+            "1010738003",
+            "1010908005"
+          ],
+          "min": 1010003081.0,
+          "p50": 2051122858.0,
+          "max": 5855969052.0,
+          "mean": 2602232309.447861,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "cr_issue_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 670,
+          "role_hint": "unknown",
+          "examples": [
+            "2022-05-02",
+            "2020-05-27",
+            "2019-09-20",
+            "2022-08-21",
+            "2021-03-06"
+          ],
+          "time_min": "2014-12-03 00:00:00",
+          "time_max": "2026-01-31 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        },
+        {
+          "name": "cr_expiry_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 678,
+          "role_hint": "unknown",
+          "examples": [
+            "2023-05-02",
+            "2022-05-27",
+            "2020-09-19",
+            "2023-08-21",
+            "2026-03-05"
+          ],
+          "time_min": "2016-03-20 00:00:00",
+          "time_max": "2030-10-30 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 89
+        },
+        {
+          "name": "cr_status",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 1,
+          "role_hint": "unknown",
+          "examples": [
+            "active"
+          ]
+        },
+        {
+          "name": "vat_number",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "unknown",
+          "examples": [
+            "309576479733193",
+            "362001219149603",
+            "377657952724433",
+            "303010711669383",
+            "359479786472843"
+          ],
+          "min": 300056854035623.0,
+          "p50": 347764599940533.0,
+          "max": 399672587690903.0,
+          "mean": 348384105352113.5,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "vat_registered",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "1",
+            "0"
+          ],
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.8890374331550802,
+          "negatives": 0,
+          "zeros": 83
+        },
+        {
+          "name": "declared_category",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 16,
+          "role_hint": "unknown",
+          "examples": [
+            "jewelry_gold",
+            "groceries",
+            "apparel",
+            "pharmacy_health",
+            "beauty_perfume"
+          ]
+        },
+        {
+          "name": "mcc",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 16,
+          "role_hint": "unknown",
+          "examples": [
+            "5944",
+            "5411",
+            "5651",
+            "5912",
+            "5977"
+          ],
+          "min": 4722.0,
+          "p50": 5732.0,
+          "max": 8299.0,
+          "mean": 5864.306149732621,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "onboarding_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 659,
+          "role_hint": "unknown",
+          "examples": [
+            "2022-08-16",
+            "2021-04-10",
+            "2019-10-01",
+            "2022-11-30",
+            "2021-05-08"
+          ],
+          "time_min": "2016-10-15 00:00:00",
+          "time_max": "2026-04-05 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        },
+        {
+          "name": "kyb_status",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 3,
+          "role_hint": "unknown",
+          "examples": [
+            "pending_documents",
+            "verified",
+            "simplified_review"
+          ]
+        },
+        {
+          "name": "kyb_risk_score",
+          "dtype": "float64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 363,
+          "role_hint": "unknown",
+          "examples": [
+            "0.201",
+            "0.158",
+            "0.071",
+            "0.064",
+            "0.308"
+          ],
+          "min": 0.004,
+          "p50": 0.163,
+          "max": 0.715,
+          "mean": 0.19141176470588234,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "kyb_last_review_date",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 660,
+          "role_hint": "unknown",
+          "examples": [
+            "2022-10-26",
+            "2021-07-05",
+            "2019-11-14",
+            "2022-12-01",
+            "2021-07-25"
+          ],
+          "time_min": "2016-11-19 00:00:00",
+          "time_max": "2026-06-02 00:00:00",
+          "parse_ok_pct": 100.0,
+          "future_rows": 0
+        },
+        {
+          "name": "expected_monthly_volume_sar",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 743,
+          "role_hint": "unknown",
+          "examples": [
+            "144598",
+            "30902",
+            "22964",
+            "83768",
+            "10972"
+          ],
+          "min": 4190.0,
+          "p50": 50646.0,
+          "max": 1046788.0,
+          "mean": 76339.74064171124,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "employees_band",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 4,
+          "role_hint": "unknown",
+          "examples": [
+            "6-20",
+            "21-100",
+            "1-5",
+            "100+"
+          ]
+        },
+        {
+          "name": "has_physical_store",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "1",
+            "0"
+          ],
+          "min": 0.0,
+          "p50": 1.0,
+          "max": 1.0,
+          "mean": 0.6122994652406417,
+          "negatives": 0,
+          "zeros": 290
+        },
+        {
+          "name": "email_domain_type",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "entity",
+          "examples": [
+            "business",
+            "free_mail"
+          ]
+        },
+        {
+          "name": "phone_hash",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "entity",
+          "examples": [
+            "e9719975b6695284",
+            "ee0d63097a6da332",
+            "3536325fe0a98cfa",
+            "06c9f3f638cca20c",
+            "4fc362a7bfadd2ae"
+          ]
+        },
+        {
+          "name": "iban",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "unknown",
+          "examples": [
+            "SA4210266590790417651780",
+            "SA3180540396120347994581",
+            "SA6310122097400440956586",
+            "SA2405923601376220273326",
+            "SA2730949887539388535723"
+          ]
+        },
+        {
+          "name": "settlement_bank_code",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 20,
+          "role_hint": "unknown",
+          "examples": [
+            "10",
+            "80",
+            "5",
+            "30",
+            "55"
+          ],
+          "min": 3.0,
+          "p50": 45.0,
+          "max": 91.0,
+          "mean": 41.62967914438503,
+          "negatives": 0,
+          "zeros": 0
+        },
+        {
+          "name": "cr_director_id_hash",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 706,
+          "role_hint": "unknown",
+          "examples": [
+            "a7224c386e37a2f5",
+            "61646ac87f7b0432",
+            "eec4cc288a3bf818",
+            "e1e83620e8559ee5",
+            "5ac61f8fff051013"
+          ]
+        },
+        {
+          "name": "cr_director_pep_flag",
+          "dtype": "int64",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 2,
+          "role_hint": "unknown",
+          "examples": [
+            "0",
+            "1"
+          ],
+          "min": 0.0,
+          "p50": 0.0,
+          "max": 1.0,
+          "mean": 0.012032085561497326,
+          "negatives": 0,
+          "zeros": 739
+        },
+        {
+          "name": "gt_role",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 5,
+          "role_hint": "unknown",
+          "examples": [
+            "normal",
+            "high_refund_legit_store",
+            "seasonal_spike_established_store",
+            "ring_merchant",
+            "refund_abuse_merchant"
+          ]
+        },
+        {
+          "name": "gt_scenario_id",
+          "dtype": "object",
+          "nulls": 700,
+          "null_pct": 93.583,
+          "n_unique": 48,
+          "role_hint": "identifier",
+          "examples": [
+            "RING_000",
+            "RING_001",
+            "RING_002",
+            "RING_003",
+            "RING_004"
+          ],
+          "dup_key_values": 700
+        },
+        {
+          "name": "console_device_id",
+          "dtype": "object",
+          "nulls": 0,
+          "null_pct": 0.0,
+          "n_unique": 748,
+          "role_hint": "entity",
+          "examples": [
+            "D0009006",
+            "D0009007",
+            "D0009008",
+            "D0009009",
+            "D0009010"
+          ]
+        }
+      ],
+      "findings": [
+        {
+          "severity": "HIGH",
+          "table": "merchants.csv",
+          "check": "future_timestamp",
+          "detail": "cr_expiry_date: 89 rows after current UTC time",
+          "recommended_action": "Clock skew or synthetic data - blocks time-aware validation."
+        },
+        {
+          "severity": "LOW",
+          "table": "merchants.csv",
+          "check": "constant_column",
+          "detail": "cr_status has a single value",
+          "recommended_action": "Drop from model features."
+        },
+        {
+          "severity": "HIGH",
+          "table": "merchants.csv",
+          "check": "suspected_leakage_name",
+          "detail": "kyb_last_review_date matches post-event vocabulary",
+          "recommended_action": "Verify availability at decision time; exclude unless provably pre-decision."
+        },
+        {
+          "severity": "HIGH",
+          "table": "merchants.csv",
+          "check": "missing_values",
+          "detail": "gt_scenario_id: 700 nulls (93.583%)",
+          "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+        },
+        {
+          "severity": "HIGH",
+          "table": "merchants.csv",
+          "check": "duplicate_key",
+          "detail": "gt_scenario_id: 700 repeated values (not unique)",
+          "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+        },
+        {
+          "severity": "MEDIUM",
+          "table": "merchants.csv",
+          "check": "temporal_order",
+          "detail": "378 rows earlier than preceding row (file not time-sorted)",
+          "recommended_action": "Sort by event time before time-based split and rolling features."
+        },
+        {
+          "severity": "INFO",
+          "table": "merchants.csv",
+          "check": "profiled",
+          "detail": "748 rows x 28 cols; period: 2014-12-03 00:00:00 -> 2026-01-31 00:00:00",
+          "recommended_action": "Record in dataset stats."
+        }
+      ]
+    }
+  },
+  "referential_integrity": [
+    {
+      "child": "customers.csv.phone_hash",
+      "parent": "merchants.csv.phone_hash",
+      "orphan_rows": 5992,
+      "orphan_pct": 99.867,
+      "basis": "profiled sample"
+    }
+  ],
+  "load_errors": [],
+  "findings": [
+    {
+      "severity": "HIGH",
+      "table": "customers.csv",
+      "check": "duplicate_key",
+      "detail": "id_type: 5997 repeated values (not unique)",
+      "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+    },
+    {
+      "severity": "HIGH",
+      "table": "customers.csv",
+      "check": "missing_values",
+      "detail": "gt_scenario_id: 5245 nulls (87.417%)",
+      "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+    },
+    {
+      "severity": "HIGH",
+      "table": "customers.csv",
+      "check": "duplicate_key",
+      "detail": "gt_scenario_id: 5832 repeated values (not unique)",
+      "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+    },
+    {
+      "severity": "HIGH",
+      "table": "customers.csv",
+      "check": "missing_values",
+      "detail": "card_hash_2: 3796 nulls (63.267%)",
+      "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+    },
+    {
+      "severity": "HIGH",
+      "table": "customers.csv",
+      "check": "missing_values",
+      "detail": "card_scheme_2: 3796 nulls (63.267%)",
+      "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+    },
+    {
+      "severity": "HIGH",
+      "table": "merchants.csv",
+      "check": "future_timestamp",
+      "detail": "cr_expiry_date: 89 rows after current UTC time",
+      "recommended_action": "Clock skew or synthetic data - blocks time-aware validation."
+    },
+    {
+      "severity": "HIGH",
+      "table": "merchants.csv",
+      "check": "suspected_leakage_name",
+      "detail": "kyb_last_review_date matches post-event vocabulary",
+      "recommended_action": "Verify availability at decision time; exclude unless provably pre-decision."
+    },
+    {
+      "severity": "HIGH",
+      "table": "merchants.csv",
+      "check": "missing_values",
+      "detail": "gt_scenario_id: 700 nulls (93.583%)",
+      "recommended_action": "Explicit null policy + missingness indicator; never silent zero-fill."
+    },
+    {
+      "severity": "HIGH",
+      "table": "merchants.csv",
+      "check": "duplicate_key",
+      "detail": "gt_scenario_id: 700 repeated values (not unique)",
+      "recommended_action": "Confirm grain: is this an entity FK or a transaction PK? Idempotency key depends on it."
+    },
+    {
+      "severity": "HIGH",
+      "table": "customers.csv.phone_hash",
+      "check": "referential_integrity",
+      "detail": "5992 orphans (99.867%) vs merchants.csv.phone_hash",
+      "recommended_action": "Resolve FK mapping or restrict joins; document coverage."
+    },
+    {
+      "severity": "MEDIUM",
+      "table": "customers.csv",
+      "check": "temporal_order",
+      "detail": "2994 rows earlier than preceding row (file not time-sorted)",
+      "recommended_action": "Sort by event time before time-based split and rolling features."
+    },
+    {
+      "severity": "MEDIUM",
+      "table": "devices.csv",
+      "check": "temporal_order",
+      "detail": "4896 rows earlier than preceding row (file not time-sorted)",
+      "recommended_action": "Sort by event time before time-based split and rolling features."
+    },
+    {
+      "severity": "MEDIUM",
+      "table": "merchants.csv",
+      "check": "temporal_order",
+      "detail": "378 rows earlier than preceding row (file not time-sorted)",
+      "recommended_action": "Sort by event time before time-based split and rolling features."
+    },
+    {
+      "severity": "LOW",
+      "table": "customers.csv",
+      "check": "constant_column",
+      "detail": "residence_country has a single value",
+      "recommended_action": "Drop from model features."
+    },
+    {
+      "severity": "LOW",
+      "table": "merchants.csv",
+      "check": "constant_column",
+      "detail": "cr_status has a single value",
+      "recommended_action": "Drop from model features."
+    },
+    {
+      "severity": "INFO",
+      "table": "customers.csv",
+      "check": "profiled",
+      "detail": "6000 rows x 27 cols; period: 2010-12-31 00:00:00 -> 2026-04-20 00:00:00",
+      "recommended_action": "Record in dataset stats."
+    },
+    {
+      "severity": "INFO",
+      "table": "devices.csv",
+      "check": "profiled",
+      "detail": "9921 rows x 11 cols; period: 2010-12-31 00:00:00 -> 2026-05-16 00:00:00",
+      "recommended_action": "Record in dataset stats."
+    },
+    {
+      "severity": "INFO",
+      "table": "merchants.csv",
+      "check": "profiled",
+      "detail": "748 rows x 28 cols; period: 2014-12-03 00:00:00 -> 2026-01-31 00:00:00",
+      "recommended_action": "Record in dataset stats."
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fraud_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_dev_pw}
+      MYSQL_DATABASE: ${MYSQL_DB:-fraud_aml}
+      MYSQL_USER: ${MYSQL_USER:-fraud_app}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-change_me}
+      TZ: UTC
+    command: --default-time-zone=+00:00 --innodb-flush-log-at-trx-commit=1
+    ports: ["3306:3306"]
+    volumes: ["mysql_data:/var/lib/mysql"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD:-root_dev_pw}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: fraud_redis
+    restart: unless-stopped
+    command: >
+      redis-server --appendonly yes --appendfsync everysec
+      --maxmemory 512mb --maxmemory-policy noeviction
+    ports: ["6379:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  # Stage 2 only - enable after measured need (master prompt §19 Priority 8)
+  # prometheus:
+  #   image: prom/prometheus:latest
+  #   ports: ["9090:9090"]
+  #   volumes: ["./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro"]
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   ports: ["3000:3000"]
+
+volumes:
+  mysql_data:
+  redis_data:

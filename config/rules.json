@@ -1,0 +1,857 @@
+{
+  "version": "rules-v2",
+  "description": "Tazama-pattern rules and typologies for shop fraud and AML. ALL thresholds and weights are EXPERIMENTAL hypotheses, not validated risk policy. R007 country codes and R014 categories are PLACEHOLDERS.",
+  "rules": [
+    {
+      "id": "R001",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Burst of transactions in 5 minutes",
+      "category": "fraud",
+      "feature": "tx_count_5m",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 3,
+          "reason": "Fewer than 3 transactions in 5 minutes"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 3,
+          "upperLimit": 6,
+          "reason": "3 to 5 transactions in 5 minutes",
+          "reasonCode": "ELEVATED_VELOCITY_5M"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 6,
+          "upperLimit": null,
+          "reason": "6 or more transactions in 5 minutes",
+          "reasonCode": "HIGH_VELOCITY_5M"
+        }
+      ]
+    },
+    {
+      "id": "R002",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Sustained hourly activity",
+      "category": "fraud",
+      "feature": "tx_count_1h",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 10,
+          "reason": "Fewer than 10 transactions in the hour"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 10,
+          "upperLimit": 25,
+          "reason": "10 to 24 transactions in the hour",
+          "reasonCode": "ELEVATED_VELOCITY_1H"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 25,
+          "upperLimit": null,
+          "reason": "25 or more transactions in the hour",
+          "reasonCode": "HIGH_VELOCITY_1H"
+        }
+      ]
+    },
+    {
+      "id": "R003",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Amount far above the customer's own norm",
+      "category": "fraud",
+      "feature": "amount_zscore",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 2,
+          "reason": "Amount within 2 standard deviations of the customer's mean"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 2,
+          "upperLimit": 3,
+          "reason": "Amount 2 to 3 standard deviations above the mean",
+          "reasonCode": "AMOUNT_ABOVE_NORM"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 3,
+          "upperLimit": null,
+          "reason": "Amount more than 3 standard deviations above the mean",
+          "reasonCode": "AMOUNT_ANOMALY"
+        }
+      ],
+      "exit": [
+        {
+          "feature": "is_cold_start",
+          "op": "eq",
+          "value": true,
+          "reason": "cold start: customer amount statistics are not trusted"
+        }
+      ]
+    },
+    {
+      "id": "R004",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Repeated amounts just below the reporting threshold",
+      "category": "aml",
+      "feature": "near_threshold_count_24h",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 2,
+          "reason": "Fewer than 2 near-threshold amounts in 24 hours"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 2,
+          "upperLimit": 3,
+          "reason": "2 near-threshold amounts in 24 hours",
+          "reasonCode": "NEAR_THRESHOLD_REPEAT"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 3,
+          "upperLimit": null,
+          "reason": "3 or more near-threshold amounts in 24 hours",
+          "reasonCode": "STRUCTURING_PATTERN"
+        }
+      ]
+    },
+    {
+      "id": "R005",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "First use of a device by this customer",
+      "category": "fraud",
+      "feature": "is_new_device",
+      "cases": [
+        {
+          "subRuleRef": ".01",
+          "values": [
+            true
+          ],
+          "reason": "Device not seen in this customer's history",
+          "reasonCode": "NEW_DEVICE"
+        },
+        {
+          "subRuleRef": ".00",
+          "values": [
+            false
+          ],
+          "reason": "Device already known for this customer"
+        }
+      ],
+      "exit": [
+        {
+          "feature": "history_count",
+          "op": "eq",
+          "value": 0,
+          "reason": "no customer history: device novelty cannot be judged"
+        }
+      ]
+    },
+    {
+      "id": "R006",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Transactions seconds apart",
+      "category": "fraud",
+      "feature": "secs_since_last_tx",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 10,
+          "reason": "Less than 10 seconds since the previous transaction",
+          "reasonCode": "RAPID_SUCCESSION"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 10,
+          "upperLimit": 60,
+          "reason": "10 to 59 seconds since the previous transaction",
+          "reasonCode": "SHORT_INTERVAL"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 60,
+          "upperLimit": null,
+          "reason": "A minute or more since the previous transaction"
+        }
+      ]
+    },
+    {
+      "id": "R007",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Country on the high-risk watch list",
+      "category": "aml",
+      "feature": "country_code",
+      "cases": [
+        {
+          "subRuleRef": ".01",
+          "values": [
+            "XA",
+            "XB"
+          ],
+          "reason": "Country is on the configured watch list (PLACEHOLDER codes)",
+          "reasonCode": "HIGH_RISK_COUNTRY"
+        },
+        {
+          "subRuleRef": ".00",
+          "values": "ELSE",
+          "reason": "Country is not on the watch list"
+        }
+      ]
+    },
+    {
+      "id": "R008",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Many distinct devices in 24 hours",
+      "category": "fraud",
+      "feature": "distinct_devices_24h",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 3,
+          "reason": "Fewer than 3 devices in 24 hours"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 3,
+          "upperLimit": 5,
+          "reason": "3 to 4 devices in 24 hours",
+          "reasonCode": "MULTIPLE_DEVICES"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 5,
+          "upperLimit": null,
+          "reason": "5 or more devices in 24 hours",
+          "reasonCode": "DEVICE_SPRAWL"
+        }
+      ]
+    },
+    {
+      "id": "R009",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "High daily transaction volume",
+      "category": "aml",
+      "feature": "sum_amount_24h",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 20000,
+          "reason": "Daily volume below 20,000"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 20000,
+          "upperLimit": 50000,
+          "reason": "Daily volume 20,000 to 49,999",
+          "reasonCode": "HIGH_DAILY_VOLUME"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 50000,
+          "upperLimit": null,
+          "reason": "Daily volume 50,000 or more",
+          "reasonCode": "VERY_HIGH_DAILY_VOLUME"
+        }
+      ]
+    },
+    {
+      "id": "R010",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Activity during night hours (UTC)",
+      "category": "fraud",
+      "feature": "hour_of_day_utc",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 6,
+          "reason": "Transaction between 00:00 and 05:59 UTC",
+          "reasonCode": "NIGHT_ACTIVITY"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 6,
+          "upperLimit": 23,
+          "reason": "Transaction between 06:00 and 22:59 UTC"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 23,
+          "upperLimit": null,
+          "reason": "Transaction at 23:00 UTC or later",
+          "reasonCode": "NIGHT_ACTIVITY"
+        }
+      ]
+    },
+    {
+      "id": "R011",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Absolute transaction value",
+      "category": "fraud",
+      "feature": "amount",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 1000,
+          "reason": "Amount below 1,000"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 1000,
+          "upperLimit": 5000,
+          "reason": "Amount 1,000 to 4,999"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 5000,
+          "upperLimit": 10000,
+          "reason": "Amount 5,000 to 9,999",
+          "reasonCode": "HIGH_VALUE"
+        },
+        {
+          "subRuleRef": ".03",
+          "lowerLimit": 10000,
+          "upperLimit": null,
+          "reason": "Amount 10,000 or more",
+          "reasonCode": "VERY_HIGH_VALUE"
+        }
+      ]
+    },
+    {
+      "id": "R012",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "One device used by several customers",
+      "category": "aml",
+      "feature": "device_distinct_customers_24h",
+      "bands": [
+        {
+          "subRuleRef": ".00",
+          "lowerLimit": null,
+          "upperLimit": 2,
+          "reason": "Device used by a single customer in 24 hours"
+        },
+        {
+          "subRuleRef": ".01",
+          "lowerLimit": 2,
+          "upperLimit": 4,
+          "reason": "Device used by 2 or 3 customers in 24 hours",
+          "reasonCode": "SHARED_DEVICE"
+        },
+        {
+          "subRuleRef": ".02",
+          "lowerLimit": 4,
+          "upperLimit": null,
+          "reason": "Device used by 4 or more customers in 24 hours",
+          "reasonCode": "MULE_DEVICE_CLUSTER"
+        }
+      ]
+    },
+    {
+      "id": "R013",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Remote (card-not-present style) channel",
+      "category": "fraud",
+      "feature": "channel",
+      "cases": [
+        {
+          "subRuleRef": ".01",
+          "values": [
+            "card_not_present",
+            "web",
+            "mobile"
+          ],
+          "reason": "Remote channel",
+          "reasonCode": "REMOTE_CHANNEL"
+        },
+        {
+          "subRuleRef": ".00",
+          "values": "ELSE",
+          "reason": "Channel is not classified as remote"
+        }
+      ]
+    },
+    {
+      "id": "R014",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Merchant category on the watch list",
+      "category": "aml",
+      "feature": "merchant_category",
+      "cases": [
+        {
+          "subRuleRef": ".01",
+          "values": [
+            "crypto",
+            "gambling",
+            "money_transfer"
+          ],
+          "reason": "Merchant category is on the watch list (PLACEHOLDER list)",
+          "reasonCode": "WATCHLIST_CATEGORY"
+        },
+        {
+          "subRuleRef": ".00",
+          "values": "ELSE",
+          "reason": "Merchant category is not on the watch list"
+        }
+      ]
+    }
+  ],
+  "typologies": [
+    {
+      "id": "T001",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Rapid-fire / card testing",
+      "category": "fraud",
+      "rules": [
+        {
+          "id": "R001",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 20
+            },
+            {
+              "ref": ".02",
+              "wght": 45
+            }
+          ]
+        },
+        {
+          "id": "R002",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            },
+            {
+              "ref": ".02",
+              "wght": 35
+            }
+          ]
+        },
+        {
+          "id": "R006",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 30
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            },
+            {
+              "ref": ".02",
+              "wght": 0
+            }
+          ]
+        },
+        {
+          "id": "R013",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 5
+            }
+          ]
+        }
+      ],
+      "expression": [
+        "Add",
+        "R001",
+        "R002",
+        "R006",
+        "R013"
+      ],
+      "thresholds": {
+        "review": 40,
+        "interdiction": 80
+      }
+    },
+    {
+      "id": "T002",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Account takeover",
+      "category": "fraud",
+      "rules": [
+        {
+          "id": "R005",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 25
+            }
+          ]
+        },
+        {
+          "id": "R003",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            },
+            {
+              "ref": ".02",
+              "wght": 35
+            }
+          ]
+        },
+        {
+          "id": "R011",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 0
+            },
+            {
+              "ref": ".02",
+              "wght": 10
+            },
+            {
+              "ref": ".03",
+              "wght": 20
+            }
+          ]
+        },
+        {
+          "id": "R008",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            },
+            {
+              "ref": ".02",
+              "wght": 30
+            }
+          ]
+        },
+        {
+          "id": "R010",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 10
+            },
+            {
+              "ref": ".01",
+              "wght": 0
+            },
+            {
+              "ref": ".02",
+              "wght": 10
+            }
+          ]
+        },
+        {
+          "id": "R013",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 5
+            }
+          ]
+        }
+      ],
+      "expression": [
+        "Add",
+        "R005",
+        "R003",
+        "R011",
+        "R008",
+        "R010",
+        "R013"
+      ],
+      "thresholds": {
+        "review": 50,
+        "interdiction": 85
+      }
+    },
+    {
+      "id": "T003",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Structuring",
+      "category": "aml",
+      "rules": [
+        {
+          "id": "R004",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 25
+            },
+            {
+              "ref": ".02",
+              "wght": 55
+            }
+          ]
+        },
+        {
+          "id": "R009",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            },
+            {
+              "ref": ".02",
+              "wght": 30
+            }
+          ]
+        },
+        {
+          "id": "R011",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 5
+            },
+            {
+              "ref": ".02",
+              "wght": 15
+            },
+            {
+              "ref": ".03",
+              "wght": 20
+            }
+          ]
+        }
+      ],
+      "expression": [
+        "Add",
+        "R004",
+        "R009",
+        "R011"
+      ],
+      "thresholds": {
+        "review": 40,
+        "interdiction": 80
+      }
+    },
+    {
+      "id": "T004",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "High-risk exposure",
+      "category": "aml",
+      "rules": [
+        {
+          "id": "R007",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 40
+            }
+          ]
+        },
+        {
+          "id": "R014",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 20
+            }
+          ]
+        },
+        {
+          "id": "R011",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 0
+            },
+            {
+              "ref": ".02",
+              "wght": 10
+            },
+            {
+              "ref": ".03",
+              "wght": 20
+            }
+          ]
+        },
+        {
+          "id": "R009",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 10
+            },
+            {
+              "ref": ".02",
+              "wght": 25
+            }
+          ]
+        }
+      ],
+      "expression": [
+        "Add",
+        "R007",
+        "R014",
+        "R011",
+        "R009"
+      ],
+      "thresholds": {
+        "review": 50,
+        "interdiction": 90
+      }
+    },
+    {
+      "id": "T005",
+      "version": "1.0.0",
+      "cfg": "v1",
+      "name": "Shared device / mule network",
+      "category": "aml",
+      "rules": [
+        {
+          "id": "R012",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 35
+            },
+            {
+              "ref": ".02",
+              "wght": 65
+            }
+          ]
+        },
+        {
+          "id": "R005",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 15
+            }
+          ]
+        },
+        {
+          "id": "R008",
+          "wghts": [
+            {
+              "ref": ".00",
+              "wght": 0
+            },
+            {
+              "ref": ".01",
+              "wght": 10
+            },
+            {
+              "ref": ".02",
+              "wght": 25
+            }
+          ]
+        }
+      ],
+      "expression": [
+        "Add",
+        "R012",
+        "R005",
+        "R008"
+      ],
+      "thresholds": {
+        "review": 40,
+        "interdiction": 85
+      }
+    }
+  ]
+}

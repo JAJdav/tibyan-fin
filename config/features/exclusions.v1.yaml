@@ -1,0 +1,24 @@
+# Columns that MUST NEVER reach rules, ML features, or graph scoring.
+feature_version: fv1
+forbidden_columns:
+  - column: customers.gt_role
+    reason: generator ground-truth role; direct label leakage
+  - column: customers.gt_scenario_id
+    reason: generator ground-truth scenario id; direct label leakage
+  - column: merchants.gt_role
+    reason: generator ground-truth role; direct label leakage
+  - column: merchants.gt_scenario_id
+    reason: generator ground-truth scenario id; direct label leakage
+label_only_usage:
+  - gt_role
+  - gt_scenario_id
+as_of_verification_required:
+  - merchants.kyb_last_review_date
+  - merchants.kyb_risk_score
+  - customers.kyc_verified_date
+  - customers.risk_rating
+structural_nulls_not_defects:
+  - customers.card_hash_2
+  - customers.card_scheme_2
+  - customers.gt_scenario_id
+  - merchants.gt_scenario_id
